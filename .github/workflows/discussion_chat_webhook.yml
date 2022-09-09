@@ -6,6 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: "curl version"
+        run: curl -V
       - name: "Google Chat notification"
         run: |
           curl --location -X POST '${{secrets.WEBHOOK_CHAT_URL}}&threadKey=${{github.event.discussion.number}}' \
