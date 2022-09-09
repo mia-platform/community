@@ -25,12 +25,6 @@ jobs:
                   },
                   {
                     "keyValue": {
-                      "topLabel": "State",
-                      "content": "${{ github.event.discussion.state }}"
-                    }
-                  },
-                  {
-                    "keyValue": {
                       "topLabel": "Category",
                       "content": "${{ github.event.discussion.category.name }}"
                     }
