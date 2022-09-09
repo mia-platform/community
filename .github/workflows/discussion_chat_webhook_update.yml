@@ -3,7 +3,7 @@ on:
   discussion:
     types: ["answered", "unanswered"]
 jobs:
-  build:
+  notify:
     runs-on: ubuntu-latest
     steps:
       - name: "Google Chat notification"
