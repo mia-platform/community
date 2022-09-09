@@ -1,0 +1,62 @@
+name: "discussion-webhook"
+on:
+  discussion:
+    types: ["created"]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Google Chat notification"
+        run: |
+          [ $(curl --location -X POST '${{secrets.WEBHOOK_CHAT_URL}}&threadKey=${{github.event.discussion.number}}' \
+          --header 'Content-Type: application/json' \
+          --data-raw '{
+            "cards": [{
+              "header": {
+                "title": "Discussions Tracker",
+                "subtitle": "Discussion #${{ github.event.discussion.number }} is ${{ github.event.discussion.state }}"
+              },
+              "sections": {
+                "widgets": [{
+                    "keyValue": {
+                      "topLabel": "Title",
+                      "content": "${{ github.event.discussion.title }}"
+                    }
+                  },
+                  {
+                    "keyValue": {
+                      "topLabel": "State",
+                      "content": "${{ github.event.discussion.state }}"
+                    }
+                  },
+                  {
+                    "keyValue": {
+                      "topLabel": "Category",
+                      "content": "${{ github.event.discussion.category.name }}"
+                    }
+                  },
+                  {
+                    "keyValue": {
+                      "topLabel": "Body",
+                      "content": "${{ github.event.discussion.body }}",
+                      "contentMultiline": true
+                    }
+                  },
+                  {
+                    "buttons": [{
+                      "textButton": {
+                        "text": "OPEN DISCUSSION",
+                        "onClick": {
+                          "openLink": {
+                            "url": "${{github.event.discussion.html_url}}"
+                          }
+                        }
+                      }
+                    }]
+                  }
+                ]
+              }
+            }]
+          }' -w '%{http_code}') -eq 200 ]
+
+

@@ -1,8 +1,7 @@
-name: "discussion-webhook"
+name: "discussion-webhook-update"
 on:
   discussion:
-    types: ["created", "answered", "unanswered", ]
-  discussion_comment:
+    types: ["answered", "unanswered"]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,7 +14,7 @@ jobs:
             "cards": [{
               "header": {
                 "title": "Discussions Tracker",
-                "subtitle": "Discussion #${{ github.event.discussion.number }} is ${{ github.event.discussion.state }}"
+                "subtitle": "Discussion #${{ github.event.discussion.number }} is ${{ github.event.action }}"
               },
               "sections": {
                 "widgets": [{
@@ -37,13 +36,6 @@ jobs:
                     }
                   },
                   {
-                    "keyValue": {
-                      "topLabel": "Body",
-                      "content": "${{ github.event.discussion.body }}",
-                      "contentMultiline": true
-                    }
-                  },
-                  {
                     "buttons": [{
                       "textButton": {
                         "text": "OPEN DISCUSSION",
@@ -58,6 +50,6 @@ jobs:
                 ]
               }
             }]
-          }' -o /dev/stderr -w '%{http_code}') -eq 200 ]
+          }' -o /dev/null -w '%{http_code}') -eq 200 ]
 
 
