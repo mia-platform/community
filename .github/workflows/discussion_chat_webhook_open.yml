@@ -51,6 +51,6 @@ jobs:
                 ]
               }
             }]
-          }' -o /dev/null -w '%{http_code}') -eq 200 ]m
+          }' -o /dev/null -w '%{http_code}') -eq 200 ]
 
 
