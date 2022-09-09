@@ -20,7 +20,7 @@ jobs:
               "sections": {
                 "widgets": [{
                     "keyValue": {
-                      "text": "Title",
+                      "topLabel": "Title",
                       "content": "${{ github.event.discussion.title }}"
                     }
                   },
