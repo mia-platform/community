@@ -8,42 +8,41 @@ jobs:
     steps:
       - name: "Google Chat notification"
         run: |
-          curl --location -X POST '${{secrets.WEBHOOK_CHAT_URL}}' \
+          curl --location -X POST '${{secrets.WEBHOOK_CHAT_URL}}&threadKey=${{github.event.discussion.number}}' \
           --header 'Content-Type: application/json' \
           --data-raw '{
-            "header": {
+            "cards": [{
+              "header": {
                 "title": "Discussions Tracker",
                 "subtitle": "Discussion #${{ github.event.discussion.number }} is ${{ github.event.discussion.state }}"
-            },
-            "sections": {
-              "widgets": [
-                {
-                  "keyValue": {
-                    "topLabel": "Title",
-                    "content": "${{ github.event.discussion.title }}"
-                  }
-                },
-                {
-                  "keyValue": {
-                    "topLabel": "State",
-                    "content": "${{ github.event.discussion.state }}"
-                  }
-                },
-                {
-                  "keyValue": {
-                    "topLabel": "Category",
-                    "content": "${{ github.event.discussion.category.name }}"
-                  }
-                },
-                {
-                  "keyValue": {
-                    "topLabel": "Body",
-                    "content": "${{ github.event.discussion.body }}"
-                  }
-                },
-                {
-                  "buttons": [
-                    {
+              },
+              "sections": {
+                "widgets": [{
+                    "textParagraph": {
+                      "text": "Title",
+                      "content": "${{ github.event.discussion.title }}"
+                    }
+                  },
+                  {
+                    "keyValue": {
+                      "topLabel": "State",
+                      "content": "${{ github.event.discussion.state }}"
+                    }
+                  },
+                  {
+                    "keyValue": {
+                      "topLabel": "Category",
+                      "content": "${{ github.event.discussion.category.name }}"
+                    }
+                  },
+                  {
+                    "keyValue": {
+                      "topLabel": "Body",
+                      "content": "${{ github.event.discussion.body }}"
+                    }
+                  },
+                  {
+                    "buttons": [{
                       "textButton": {
                         "text": "OPEN DISCUSSION",
                         "onClick": {
@@ -52,11 +51,11 @@ jobs:
                           }
                         }
                       }
-                    }
-                  ]
-                }
-              ]
-            }
+                    }]
+                  }
+                ]
+              }
+            }]
           }'
 
 
