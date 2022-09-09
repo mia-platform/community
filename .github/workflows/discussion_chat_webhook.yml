@@ -1,7 +1,8 @@
 name: "discussion-webhook"
 on:
   discussion:
-    types: ["created", "answered", "unanswered"]
+    types: ["created", "answered", "unanswered", ]
+  discussion_comment:
 jobs:
   build:
     runs-on: ubuntu-latest
