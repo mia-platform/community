@@ -39,7 +39,8 @@ jobs:
                   {
                     "keyValue": {
                       "topLabel": "Body",
-                      "content": "${{ github.event.discussion.body }}"
+                      "content": "${{ github.event.discussion.body }}",
+                      "contentMultiline": true
                     }
                   },
                   {
@@ -57,6 +58,6 @@ jobs:
                 ]
               }
             }]
-          }' -v -o /dev/stderr -w '%{http_code}') -eq 200 ]
+          }' -o /dev/stderr -w '%{http_code}') -eq 200 ]
 
 
