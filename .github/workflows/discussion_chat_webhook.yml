@@ -8,13 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "curl upgrade version to use fail-with-body options"
-        run: |
-          sudo apt-get update && sudo apt-get upgrade curl
-          curl -V
       - name: "Google Chat notification"
         run: |
-          curl --location -X POST '${{secrets.WEBHOOK_CHAT_URL}}&threadKey=${{github.event.discussion.number}}' \
-          --fail-with-body \
+          [ $(curl --location -X POST '${{secrets.WEBHOOK_CHAT_URL}}&threadKey=${{github.event.discussion.number}}' \
           --header 'Content-Type: application/json' \
           --data-raw '{
             "cards": [{
@@ -62,6 +58,6 @@ jobs:
                 ]
               }
             }]
-          }'
+          }' -v -o /dev/stderr -w '%{http_code}') -eq 200 ]
 
 
