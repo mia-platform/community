@@ -13,7 +13,7 @@ jobs:
           --data-raw '{
             "cards": [{
               "header": {
-                "title": "Discussion #${{ github.event.discussion.number }} is ${{ github.event.discussion.state }}",
+                "title": "Discussion #${{ github.event.discussion.number }} is ${{ github.event.action }}",
                 "subtitle": "Discussion tracker bot"
               },
               "sections": {
