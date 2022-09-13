@@ -30,13 +30,6 @@ jobs:
                     }
                   },
                   {
-                    "keyValue": {
-                      "topLabel": "Body",
-                      "content": "${{ github.event.discussion.body }}",
-                      "contentMultiline": true
-                    }
-                  },
-                  {
                     "buttons": [{
                       "textButton": {
                         "text": "OPEN DISCUSSION",
