@@ -1,7 +1,7 @@
-name: "discussion-webhook-update"
+name: "discussion-webhook"
 on:
   discussion:
-    types: ["answered", "unanswered"]
+    types: ["created", "answered", "unanswered"]
 jobs:
   notify:
     runs-on: ubuntu-latest
