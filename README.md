@@ -1,3 +1,13 @@
-# Mia-Platform Community
+<div align="center">
 
-Welcome to Mia-Platform Community Space. Please visit this section for staring ! [https://github.com/mia-platform/community/discussions](https://github.com/mia-platform/community/discussions)
+<h1> Mia-Platform Community </h1>
+
+<strong>Welcome to the [Mia-Platform][mia-website] Community!</strong>
+
+Head to the [Discussion Section][mia-community] to join!
+
+</div>
+
+
+[mia-website]: https://mia-platform.eu
+[mia-community]: https://github.com/mia-platform/community/discussions
