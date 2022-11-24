@@ -20,7 +20,7 @@ jobs:
                 "widgets": [{
                     "keyValue": {
                       "topLabel": "Title",
-                      "content": "(echo ${{ github.event.discussion.title }} | sed 's/"/\'/g')"
+                      "content": "${{ github.event.discussion.title }}"
                     }
                   },
                   {
