@@ -12,6 +12,8 @@ Head to the [Discussion Section][mia-community] to join!
 
 The Mia-Platform community is an open space for everyone using our products; any question, information or feedback is welcome so feel free to join us!
 
+If you have any doubt where to start make sure you have read the [CONTRIBUTING guidlines][contributing]
+
 # Mia-Platform Documentation
 
 If you wish to go solo and learn everything by yourself, you can find all the information you need inside [Mia-Platform Documentation][mia-docs].
@@ -25,6 +27,7 @@ From open source code templates to full-fledged microservices, you can customize
 
 [mia-website]: https://mia-platform.eu
 [mia-community]: https://github.com/mia-platform/community/discussions
+[contributing]: CONTRIBUTING.md
 [mia-docs]: https://docs.mia-platform.eu
 [mia-marketplace]: https://mia-platform.eu/platform/mia-platform-marketplace/
 [mia-marketplace-contribution]: https://github.com/mia-platform/community/issues/new?labels=marketplace&template=marketplace-contribution.md&title=Add+new+marketplace+item
