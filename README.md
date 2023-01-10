@@ -14,7 +14,7 @@ The Mia-Platform community is an open space for everyone using our products; any
 
 # Mia-Platform Documentation
 
-If you wish to go solo and learn everything by yourself, you can find all the information you need inside [Mia-Platform Documentation Portal][mia-docs].
+If you wish to go solo and learn everything by yourself, you can find all the information you need inside [Mia-Platform Documentation][mia-docs].
 
 # Mia-Platform Marketplace
 
