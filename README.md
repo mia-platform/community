@@ -1,6 +1,6 @@
 <div align="center">
 
-# Mia-Platform Community </h1>
+# Mia-Platform Community
 
 **Welcome to the [Mia-Platform][mia-website] Community!**
 
