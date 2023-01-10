@@ -28,17 +28,17 @@ Visit [this link](https://docs.mia-platform.eu/docs/marketplace/add_to_marketpla
 
 - **repository URL**: write here the link to reach out the component repository
 
-In the repository, please make sure to provide a detailed README.
+In the repository, please make sure to provide a detailed **README**.
 The optimal solution would be to have two README files that essentially provide two types of information:
 
  1. why should a user use your example/template? what technology stack does it use, etc.?
  2. once installed, what must the developer do to use the repository? (e.g. are there specific commands to run? resources to install to prepare the environment? etc.)
 
 In case your component is a **plugin**:
-write here its docker image
+write here its **docker image**
 
 In case your component is a **template/example**:
-prepare and write here the required archiveUrl; check [here](https://github.com/mia-platform-marketplace/Node.js-Hello-World-Microservice-Example/archive/master.tar.gz) a format example for this required resource.
+prepare and write here the required **archiveUrl**; check [here](https://github.com/mia-platform-marketplace/Node.js-Hello-World-Microservice-Example/archive/master.tar.gz) a format example for this required resource.
 
 When a Mia-Platform referent has contacted you subsequently to the publication of this issue, you can manage together the correct configuration of the component so that it can be configurable and correctly deployable from Mia-Platform Console.
 
