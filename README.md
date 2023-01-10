@@ -12,4 +12,4 @@ If you wish to request the addition of a new component to Mia-Platform marketpla
 
 [mia-website]: https://mia-platform.eu
 [mia-community]: https://github.com/mia-platform/community/discussions
-[mia-marketplace-contribution]: https://github.com/mia-platform/community/issues/new?template=bug_report.md
+[mia-marketplace-contribution]: https://github.com/mia-platform/community/issues/new?template=marketplace-contribution.md
