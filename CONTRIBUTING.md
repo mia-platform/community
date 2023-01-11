@@ -17,9 +17,11 @@ The [discussion board](https://github.com/mia-platform/community/discussions) is
 
 - all threads must be written in English
 - each thread *must not* contain any reserved information (customer names, identifiers, personal data, secret values, etc)
+
 #### Create a new discussion
 
 Before creating a new discussion make sure there is no discussion on the same topic, already; if you didn't found what you are looking for, open a new one and make sure to properly label it.
+
 #### Answer a discussion
 
 ### Change Community contents
