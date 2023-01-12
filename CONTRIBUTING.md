@@ -13,16 +13,16 @@ before contributing. If you find someone that is not respecting it please report
 
 ### Discussion Board
 
-The [discussion board](https://github.com/mia-platform/community/discussions) is the place where you can search for common problems/ideas and ask your own; each discussion should be properly labelled, formatted and written following the guidelines below:
+The [discussion board](https://github.com/mia-platform/community/discussions) is the place where you can search for common problems, ideas and ask your own; each discussion (regardless if it is a question or an answer) must follow the guidelines below:
 
 - all threads must be written in English
 - each thread *must not* contain any reserved information (customer names, identifiers, personal data, secret values, etc)
+- proper labels must be used, there's a bunch of labels already available, if you don't find a suitable one we can help
 
 #### Create a new discussion
 
-Before creating a new discussion make sure there is no discussion on the same topic, already; if you didn't found what you are looking for, open a new one and make sure to properly label it.
-
-#### Answer a discussion
+Before creating a new discussion make sure there is no discussion on the same topic, already; if you don't found what you are looking for, open a new one and make sure to properly label it.
 
 ### Change Community contents
 
+To propose changes to the community contents you can open a new pull request if you are not sure where to start from you can open an issue to discuss your proposal.
