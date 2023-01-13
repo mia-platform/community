@@ -12,7 +12,7 @@ Head to the [Discussion Section][mia-community] to join!
 
 The Mia-Platform community is an open space for everyone using our products; any question, information or feedback is welcome so feel free to join us!
 
-If you have any doubt where to start make sure you have read the [CONTRIBUTING guidlines][contributing].
+If you have any doubt where to start make sure you have read the [CONTRIBUTING guidelines][contributing].
 
 # Mia-Platform Documentation
 
