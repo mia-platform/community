@@ -6,7 +6,7 @@ labels: marketplace
 assignees: ''
 ---
 
-Thanks for contributing to Mia-Platform Marketplace!
+<!-- Thanks for contributing to Mia-Platform Marketplace! -->
 
 If you wish to request the addition of a new component, please fill in the necessary fields below.  
 When the issue will be opened, a Mia-Platform referent will contact you to verify and manage the component addition.
