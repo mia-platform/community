@@ -1,0 +1,82 @@
+name: Marketplace Contribution
+description: Add a new component to Mia-Platform marketplace
+title: "[New marketplace item]: "
+labels: ["marketplace"]
+assignees:
+  - "@mia-platform/sig-marketplace"
+body:
+  - type: markdown
+    attributes:
+      value: |
+      [Click here](https://docs.mia-platform.eu/docs/marketplace/add_to_marketplace/contributing_overview) to know how to create your marketplace item to submit.
+      When a Mia-Platform referent has contacted you subsequently to the publication of this issue, you can manage together the correct configuration of the component so that it can be configurable and correctly deployable from Mia-Platform Console.
+      If you would like to learn more about which are the expected properties of a Mia-Platform Marketplace component, depending on the type of component, please read [this documentation page](https://docs.mia-platform.eu/docs/marketplace/add_to_marketplace/contributing_overview#how-to-configure-a-new-component) carefully.
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: Component name appearing in the Marketplace card
+      placeholder: marketplace name
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A brief description (10 to 20 words) regarding the service functionalities
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      description: The type of your component.
+      multiple: false
+      options:
+        - plugin (a ready to use Docker image)
+        - template (a base repository from which you can start to create a new microservice)
+        - example (a specific use-case, a ready-to-use model to create your microservice)
+        - application (a bundle of resources including Plugins, Templates, and Examples, but also Endpoints, Collections, and Public Variables)
+        - proxy (a proxy to an external service)
+    validations:
+      required: true
+  - type: textarea
+    id: supportedByImage
+    attributes:
+      label: Support image
+      description: image that will be associated with the Company which own the microservice
+    validations:
+      required: true
+  - type: input
+    id: supportedBy
+    attributes:
+      label: supportedBy
+      description: a label to identify the Company that has produced the component
+    validations:
+      required: true
+  - type: textarea
+    id: image
+    attributes:
+      label: Image
+      description: attach the image that will be associated to the component
+    validations:
+      required: true
+  - type: input
+    id: repositoryUrl
+    attributes:
+      label: Repository URL
+      description: the link to reach out the component repository. In the repository, please make sure to provide a detailed **README**
+  - type: input
+    id: dockerImage
+    attributes:
+      label: Docker Image
+      description: In case your component is a **plugin**, write here its **docker image**
+  - type: input
+    id: archiveUrl
+    attributes:
+      label: Archive URL
+      description: In case your component is a **template/example**, prepare and write here the required **archiveUrl**
+      placeholder:  In case your component is a **template/example**, prepare and write here the required **archiveUrl**; check [here](https://github.com/mia-platform-marketplace/Node.js-Hello-World-Microservice-Example/archive/master.tar.gz) a format example for this required resource.
+  - type: textarea
+    id: additionalNotes
+    attributes:
+      label: Additional Notes
+      description: Write here your notes/considerations/questions about.
