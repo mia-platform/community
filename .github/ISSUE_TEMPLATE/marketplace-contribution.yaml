@@ -75,7 +75,6 @@ body:
     attributes:
       label: Archive URL
       description: In case your component is a **template/example**, prepare and write here the required **archiveUrl**
-      placeholder:  In case your component is a **template/example**, prepare and write here the required **archiveUrl**; check [here](https://github.com/mia-platform-marketplace/Node.js-Hello-World-Microservice-Example/archive/master.tar.gz) a format example for this required resource.
   - type: textarea
     id: additionalNotes
     attributes:
