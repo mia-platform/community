@@ -9,6 +9,7 @@ body:
     attributes:
       value: |
         [Click here](https://docs.mia-platform.eu/docs/marketplace/add_to_marketplace/contributing_overview) to know how to create your marketplace item to submit.
+
         When a Mia-Platform referent has contacted you subsequently to the publication of this issue, you can manage together the correct configuration of the component so that it can be configurable and correctly deployable from Mia-Platform Console.
         If you would like to learn more about which are the expected properties of a Mia-Platform Marketplace component, depending on the type of component, please read [this documentation page](https://docs.mia-platform.eu/docs/marketplace/add_to_marketplace/contributing_overview#how-to-configure-a-new-component) carefully.
   - type: input
