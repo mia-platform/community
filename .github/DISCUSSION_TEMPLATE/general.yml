@@ -1,11 +1,6 @@
 ---
-title: "[General]"
-labels: "[General Discussion]"
+labels: ["general"]
 body:
-  - type: input
-    id: title
-    attributes:
-      label: Title
   - type: textarea
     id: description
     attributes:
