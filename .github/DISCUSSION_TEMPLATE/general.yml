@@ -1,0 +1,13 @@
+---
+title: "[General]"
+labels: "[General Discussion]"
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Title
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A description about anything and everything here
