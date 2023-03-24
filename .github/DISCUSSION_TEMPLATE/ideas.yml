@@ -1,0 +1,18 @@
+---
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: "A description about ideas for new feature"
+  - type: dropdown
+    id: component
+    attributes:
+      label: Which area of this project could be most improved?
+      options:
+        - Console
+        - Fast Data
+        - Marketplace
+        - Backoffice
+    validations:
+      required: true
