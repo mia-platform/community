@@ -1,10 +1,5 @@
 ---
 body:
-  - type: textarea
-    id: description
-    attributes:
-      label: Description
-      description: "A description about ideas for new feature"
   - type: dropdown
     id: component
     attributes:
@@ -16,3 +11,11 @@ body:
         - Backoffice
     validations:
       required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: "A description about ideas for new feature"
+    validations:
+      required: true   
+      
