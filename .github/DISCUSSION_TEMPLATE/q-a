@@ -1,0 +1,36 @@
+---
+body:
+  - type: dropdown
+    id: component
+    attributes:
+      label: Which section?
+      options:
+        - Console
+        - Fast Data
+        - Marketplace
+        - Backoffice
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Which is the version?    
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: "Share here your question"
+    validations:
+      required: true
+  - type: textarea
+    id: actual-outcome
+    attributes:
+      label: Actual Outcome
+      description: "Describe your actual outcome"
+  - type: textarea
+    id: expected-outcome
+    attributes:
+      label: Expected Outcome
+      description: "Describe your expected outcome"
