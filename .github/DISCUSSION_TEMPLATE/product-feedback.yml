@@ -3,18 +3,18 @@ body:
   - type: dropdown
     id: component
     attributes:
-      label: Which section?
+      label: What product would you like to leave feedback for?
       options:
         - Console
         - Fast Data
         - Marketplace
-        - Backoffice
+        - Microfrontend Composer
     validations:
       required: true
   - type: input
     id: version
     attributes:
-      label: Which is the version?    
+      label: What Console version are you using?
     validations:
       required: true
   - type: textarea
@@ -24,13 +24,3 @@ body:
       description: "Share here your feedback on Mia-Platform product features"
     validations:
       required: true
-  - type: textarea
-    id: actual-outcome
-    attributes:
-      label: Actual Outcome
-      description: "Describe your actual outcome"
-  - type: textarea
-    id: expected-outcome
-    attributes:
-      label: Expected Outcome
-      description: "Describe your expected outcome"
