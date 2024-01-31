@@ -3,34 +3,34 @@ body:
   - type: dropdown
     id: component
     attributes:
-      label: Which section?
+      label: What product are you having troubles with?
       options:
         - Console
         - Fast Data
         - Marketplace
-        - Backoffice
+        - Microfrontend Composer
     validations:
       required: true
   - type: input
     id: version
     attributes:
-      label: Which is the version?    
+      label: What Console version are you using?
     validations:
       required: true
   - type: textarea
     id: description
     attributes:
       label: Description
-      description: "Share here your question"
+      description: "Write your question here..."
     validations:
       required: true
   - type: textarea
     id: actual-outcome
     attributes:
       label: Actual Outcome
-      description: "Describe your actual outcome"
+      description: "Describe the actual outcome you are experiencing"
   - type: textarea
     id: expected-outcome
     attributes:
       label: Expected Outcome
-      description: "Describe your expected outcome"
+      description: "Describe the outcome you would expect"
