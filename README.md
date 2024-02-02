@@ -22,7 +22,9 @@ If you wish to go solo and learn everything by yourself, you can find all the in
 
 [Mia-Platform Marketplace][mia-marketplace] is the place where you can find everything you need to in order to speed up the development of your application! 
 
-From open source code templates to full-fledged microservices, you can customize the Marketplace with your own components; if you wish to add yours feel free to [open an issue here with the Marketplace contribution template][mia-marketplace-contribution] we will be happy to help you!
+From open source code templates to full-fledged microservices, you can customize the Marketplace with your own components: follow [the official documentation][mia-marketplace-docs] to know how to do so.
+
+We suggest to adopt a [declarative approach][mia-marketplace-declarative-approach] to handle your Marketplace, by using the official Mia-Platform CLI [`miactl`][miactl-docs].
 
 
 [mia-website]: https://mia-platform.eu
@@ -30,4 +32,6 @@ From open source code templates to full-fledged microservices, you can customize
 [contributing]: CONTRIBUTING.md
 [mia-docs]: https://docs.mia-platform.eu
 [mia-marketplace]: https://mia-platform.eu/platform/mia-platform-marketplace/
-[mia-marketplace-contribution]: https://github.com/mia-platform/community/issues/new?labels=marketplace&template=marketplace-contribution.md&title=Add+new+marketplace+item
+[mia-marketplace-docs]: https://docs.mia-platform.eu/docs/marketplace/add_to_marketplace/contributing_overview
+[mia-marketplace-declarative-approach]: https://docs.mia-platform.eu/docs/marketplace/add_to_marketplace/declarative_marketplace
+[miactl-docs]: https://docs.mia-platform.eu/docs/cli/miactl/overview
