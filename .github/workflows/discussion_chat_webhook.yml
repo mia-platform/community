@@ -26,7 +26,7 @@ jobs:
                                     "decoratedText": {
                                     "topLabel": "Title",
                                     "text": "<b>${{ github.event.discussion.title }}</b>",
-                                    "bottomLabel": "User: ${{ github.event.discussion.user.id }}",
+                                    "bottomLabel": "User: ${{ github.event.discussion.user.login }}",
                                     }
                                 },
                                 {
