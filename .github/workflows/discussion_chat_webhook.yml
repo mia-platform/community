@@ -29,7 +29,7 @@ jobs:
                                   {
                                       "decoratedText": {
                                           "topLabel": "Title",
-                                          "text": "<b>Test Discussion #2</b>",
+                                          "text": "<b>${escaped_title}</b>",
                                           "bottomLabel": "User: 10374360"
                                       }
                                   },
