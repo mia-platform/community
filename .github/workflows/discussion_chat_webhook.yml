@@ -8,42 +8,47 @@ jobs:
     steps:
       - name: "Google Chat notification"
         run: |
-          [ $(curl --location -X POST '${{secrets.WEBHOOK_CHAT_URL}}&threadKey=${{github.event.discussion.number}}' \
+          title="${{ github.event.discussion.title }}"
+          escaped_title="${title//\'/\\\'}"
+          [ $(curl --location -X POST '${{secrets.WEBHOOK_CHAT_URL}}&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD' \
           --header 'Content-Type: application/json' \
           --data-raw '{
-            "cards": [{
+            "thread": {"threadKey": "${{github.event.discussion.number}}"}
+            "cardsV2": [{
               "header": {
                 "title": "Discussion #${{ github.event.discussion.number }} is ${{ github.event.action }}",
                 "subtitle": "Discussion tracker bot"
               },
               "sections": {
-                "widgets": [{
-                    "keyValue": {
+                "widgets": [
+                  {
+                    "decoratedText": {
                       "topLabel": "Title",
-                      "content": "${{ github.event.discussion.title }}"
+                      "text": "<b>${escaped_title}</b>",
+                      "bottomLabel": "User: ${{ github.event.discussion.user.id }}",
                     }
                   },
                   {
-                    "keyValue": {
+                    "decoratedText": {
                       "topLabel": "Category",
-                      "content": "${{ github.event.discussion.category.name }}"
+                      "text": "${{ github.event.discussion.category.name }}"
                     }
                   },
                   {
-                    "buttons": [{
-                      "textButton": {
-                        "text": "OPEN DISCUSSION",
-                        "onClick": {
-                          "openLink": {
-                            "url": "${{github.event.discussion.html_url}}"
+                    "buttonList": {
+                      "buttons": [
+                        {
+                          "text": "OPEN DISCUSSION",
+                          "onClick": {
+                            "openLink": {
+                              "url": "${{github.event.discussion.html_url}}"
+                            }
                           }
                         }
-                      }
-                    }]
+                      ]
+                    }
                   }
                 ]
               }
             }]
           }' -o /dev/null -w '%{http_code}') -eq 200 ]
-
-
