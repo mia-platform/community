@@ -13,42 +13,49 @@ jobs:
           [ $(curl --location -X POST '${{secrets.WEBHOOK_CHAT_URL}}&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD' \
           --header 'Content-Type: application/json' \
           --data-raw '{
-            "thread": {"threadKey": "${{github.event.discussion.number}}"},
-            "cardsV2": [{
-              "header": {
-                "title": "Discussion #${{ github.event.discussion.number }} is ${{ github.event.action }}",
-                "subtitle": "Discussion tracker bot"
+              "thread": {
+                  "threadKey": "416"
               },
-              "sections": {
-                "widgets": [
+              "cardsV2": [
                   {
-                    "decoratedText": {
-                      "topLabel": "Title",
-                      "text": "<b>${escaped_title}</b>",
-                      "bottomLabel": "User: ${{ github.event.discussion.user.id }}",
-                    }
-                  },
-                  {
-                    "decoratedText": {
-                      "topLabel": "Category",
-                      "text": "${{ github.event.discussion.category.name }}"
-                    }
-                  },
-                  {
-                    "buttonList": {
-                      "buttons": [
-                        {
-                          "text": "OPEN DISCUSSION",
-                          "onClick": {
-                            "openLink": {
-                              "url": "${{github.event.discussion.html_url}}"
-                            }
+                      "cardId": "discussion-card",
+                      "card": {
+                          "header": {
+                              "title": "Discussion #416 is created",
+                              "subtitle": "Discussion tracker bot"
+                          },
+                          "sections": {
+                              "widgets": [
+                                  {
+                                      "decoratedText": {
+                                          "topLabel": "Title",
+                                          "text": "<b>Test Discussion #2</b>",
+                                          "bottomLabel": "User: 10374360"
+                                      }
+                                  },
+                                  {
+                                      "decoratedText": {
+                                          "topLabel": "Category",
+                                          "text": "Q&A"
+                                      }
+                                  },
+                                  {
+                                      "buttonList": {
+                                          "buttons": [
+                                              {
+                                                  "text": "OPEN DISCUSSION",
+                                                  "onClick": {
+                                                      "openLink": {
+                                                          "url": "https://github.com/mia-platform/community/discussions/416"
+                                                      }
+                                                  }
+                                              }
+                                          ]
+                                      }
+                                  }
+                              ]
                           }
-                        }
-                      ]
-                    }
+                      }
                   }
-                ]
-              }
-            }]
+              ]
           }' -o /dev/null -w '%{http_code}') -eq 200 ]
