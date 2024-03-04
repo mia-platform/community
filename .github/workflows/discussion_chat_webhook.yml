@@ -8,8 +8,6 @@ jobs:
     steps:
       - name: "Google Chat notification"
         run: |
-          title="${{ github.event.discussion.title }}"
-          escaped_title="${title//\'/\\\'}"
           [ $(curl --location -X POST '${{secrets.WEBHOOK_CHAT_URL}}&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD' \
           --header 'Content-Type: application/json' \
           --data-raw '{
@@ -24,7 +22,7 @@ jobs:
                   {
                     "decoratedText": {
                       "topLabel": "Title",
-                      "text": "<b>${escaped_title}</b>",
+                      "text": "<b>${{ github.event.discussion.title }}</b>",
                       "bottomLabel": "User: ${{ github.event.discussion.user.id }}",
                     }
                   },
