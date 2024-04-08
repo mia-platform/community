@@ -71,7 +71,7 @@ jobs:
 
             # Login M2M
 
-            TOKEN=$(curl -X POST "$ASSISTANT_M2M_URL" \
+            TOKEN=$(curl -v -X POST "$ASSISTANT_M2M_URL" \
             -H "Content-Type: application/x-www-form-urlencoded" \
             -H "Authorization: Basic $ASSISTANT_M2M_AUTH" \
             -d "grant_type=client_credentials" | jq -r '.access_token')
@@ -86,7 +86,7 @@ jobs:
                         --arg query "$DISCUSSION_BODY" \
                         '{chat_query: $query, chat_history: []}')
             
-            RESPONSE=$(curl -s '$ASSISTANT_API_URL' \
+            RESPONSE=$(curl -v -s '$ASSISTANT_API_URL' \
                 -H "Authorization: Bearer $TOKEN" \
                 -H 'Content-Type: application/json' \
                 --data-raw "$QUERY")
@@ -103,6 +103,6 @@ jobs:
                 }
             }"
 
-            curl --location -X POST "$WEBHOOK_CHAT_URL&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD" \
+            curl -v --location -X POST "$WEBHOOK_CHAT_URL&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD" \
             --header 'Content-Type: application/json' \
             --data-raw "$DATA"
