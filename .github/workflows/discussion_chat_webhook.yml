@@ -78,14 +78,7 @@ jobs:
             
             # Get discussion body
             
-            DISCUSSION_BODY=$(gh api graphql -f query='
-            query($owner: String!, $repo: String!, $discussionNumber: Int!) {
-              repository(owner: $owner, name: $repo) {
-                discussion(number: $discussionNumber) {
-                  body
-                }
-              }
-            }' -f owner="${{ github.repository_owner }}" -f repo="${{ github.event.repository.name }}" -f discussionNumber=$DISCUSSION_NUMBER --jq '.data.repository.discussion.body')
+            DISCUSSION_BODY="title:${{ github.event.discussion.title }}\nbody:${{ github.event.discussion.body }}"
 
             # Get suggestion from Mia-Assistant
 
