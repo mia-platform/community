@@ -77,8 +77,8 @@ jobs:
             -d "grant_type=client_credentials" | jq -r '.access_token')
             
             # Get discussion body
-            
-            DISCUSSION_BODY="title:${{ github.event.discussion.title }}\nbody:${{ github.event.discussion.body }}"
+
+            DISCUSSION_BODY="title:${{ github.event.discussion.title }}\nbody:${${{ github.event.discussion.body }}//$'\n'/'%0A'}"
 
             # Get suggestion from Mia-Assistant
 
