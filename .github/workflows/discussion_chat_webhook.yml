@@ -82,7 +82,7 @@ jobs:
 
             # Get suggestion from Mia-Assistant
 
-            QUERY='{"chat_query":"$DISCUSSION_BODY","chat_history":[]}'
+            QUERY="{\"chat_query\":\"$DISCUSSION_BODY\",\"chat_history\":[]}"
             RESPONSE=$(curl -v -X POST "$ASSISTANT_API_URL" \
                 -H "Authorization: Bearer $TOKEN" \
                 -H 'Content-Type: application/json' \
