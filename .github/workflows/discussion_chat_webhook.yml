@@ -89,7 +89,7 @@ jobs:
                 --data-raw "$QUERY")
                 
             MESSAGE=$(echo "$RESPONSE" | jq -r '.message')
-            REFERENCE_LINKS=$(echo "$RESPONSE" | jq -r '[.references[].url] | join(", ")')
+            REFERENCE_LINKS=$(echo "$RESPONSE" | jq -r '[.references[].url] | join("\n* ")' | sed 's/^/* /')
 
             # Send suggestion to the discussion thread
 
