@@ -84,7 +84,7 @@ jobs:
             # Get suggestion from Mia-Assistant
 
             QUERY="{
-              \"chat_query\":\"$DISCUSSION_BODY\",
+              \"chat_query\":$DISCUSSION_BODY,
               \"chat_history\":[]
             }"
 
