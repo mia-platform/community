@@ -76,7 +76,7 @@ jobs:
             
             # Get discussion body
 
-            DISCUSSION_BODY="title:${{ github.event.discussion.title }}\nbody:${${{ github.event.discussion.body }}//$'\n'/'%0A'}"
+            DISCUSSION_BODY="title:${{ github.event.discussion.title }}\nbody:${echo ${{ github.event.discussion.body }} | sed 's/\\n//g'}"
 
             # Get suggestion from Mia-Assistant
 
