@@ -71,10 +71,9 @@ jobs:
 
             # Login M2M
 
-            AUTH_BASE_64=$(echo -n "$ASSISTANT_M2M_AUTH" | base64)
             TOKEN=$(curl -X POST "$ASSISTANT_M2M_URL" \
             -H "Content-Type: application/x-www-form-urlencoded" \
-            -H "Authorization: Basic $AUTH_BASE_64" \
+            -H "Authorization: Basic $ASSISTANT_M2M_AUTH" \
             -d "grant_type=client_credentials" | jq -r '.access_token')
             
             # Get discussion body
