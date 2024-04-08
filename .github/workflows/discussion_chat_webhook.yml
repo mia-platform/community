@@ -63,7 +63,6 @@ jobs:
         if: ${{ github.event.action == 'created' }}
         env:
             WEBHOOK_CHAT_URL: ${{ secrets.WEBHOOK_CHAT_URL }}
-            GCP_SECRET: ${{ secrets.GCP_SECRET }}
             ASSISTANT_API_URL: ${{ secrets.ASSISTANT_API_URL }}
             ASSISTANT_M2M_AUTH: ${{ secrets.ASSISTANT_M2M_AUTH }}
             ASSISTANT_M2M_URL: ${{ secrets.ASSISTANT_M2M_URL }}
