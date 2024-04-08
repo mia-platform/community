@@ -80,12 +80,9 @@ jobs:
             
             DISCUSSION_BODY="title:${{ github.event.discussion.title }}\nbody:${{ github.event.discussion.body }}"
 
-            echo ${DISCUSSION_BODY}
             # Get suggestion from Mia-Assistant
 
             QUERY=$(jq -n --arg chatQuery "$DISCUSSION_BODY" '{chat_query: $chatQuery, chat_history: []}')
-
-            echo $QUERY
             RESPONSE=$(curl -v -X POST "$ASSISTANT_API_URL" \
                 -H "Authorization: Bearer $TOKEN" \
                 -H 'Content-Type: application/json' \
