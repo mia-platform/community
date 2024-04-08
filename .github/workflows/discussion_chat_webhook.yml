@@ -78,7 +78,6 @@ jobs:
             }' -f owner="${{ github.repository_owner }}" -f repo="${{ github.event.repository.name }}" -f discussionNumber=$DISCUSSION_NUMBER --jq '.data.repository.discussion.body')
 
 
-            # Prepare the query for the custom API
             QUERY=$(jq -n \
                         --arg query "$DISCUSSION_BODY" \
                         '{chat_query: $query, chat_history: []}')
@@ -91,7 +90,6 @@ jobs:
             MESSAGE=$(echo "$RESPONSE" | jq -r '.message')
             REFERENCE_LINKS=$(echo "$RESPONSE" | jq -r '[.references[].url] | join(", ")')
 
-            # Preparing the data for Google Chat API, including the response from the custom API
             DATA="{
                 \"thread\": {\"threadKey\": \"$DISCUSSION_NUMBER\"},
                 \"message\": {
