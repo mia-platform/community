@@ -99,7 +99,12 @@ jobs:
           --header "Content-Type: application/x-www-form-urlencoded" \
           --header "AuthorizationBasic ${ASSISTANT_M2M_AUTH}" \
           --data "grant_type=client_credentials" \
-          "${ASSISTANT_M2M_URL}" -o response.json
+          "${ASSISTANT_M2M_URL}" -o m2m_response.json || true
+
+        if [ ! -f "m2m_response.json" ]; then
+          echo "Login via m2m has failed..."
+          exit 0
+        fi
 
         # Ask assistant for a response
         jq -nS --arg title "${DISCUSSION_TITLE}" --arg body "${DISCUSSION_BODY}" '{
@@ -111,15 +116,20 @@ jobs:
           --proto '=https' \
           --tlsv1.2 \
           --request POST \
-          --header "Authorization: Bearer: $(jq -r '.access_token' response.json)" \
+          --header "Authorization: Bearer: $(jq -r '.access_token' m2m_response.json)" \
           --header "Content-Type: application/json" \
           --data "@data.json" \
-          "${ASSISTANT_API_URL}" -o response.json
+          "${ASSISTANT_API_URL}" -o assistant_response.json || true
+
+        if [ ! -f "assistant_response.json" ]; then
+          echo "Assistant request has failed..."
+          exit 0
+        fi
 
         # Send suggestion to the discussion thread
         jq -nS --arg threadNumber "${THREAD_NUMBER}" \
-          --arg message "$(jq -r '.message' response.json)" \
-          --arg referenceLinks "$(jq -r '[.references[].url] | join(\", \")' response.json)" \
+          --arg message "$(jq -r '.message' assistant_response.json)" \
+          --arg referenceLinks "$(jq -r '[.references[].url] | join(\", \")' assistant_response.json)" \
           '{
             thread: {
               threadKey: "\($threadNumber)",
