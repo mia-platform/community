@@ -1,99 +1,146 @@
-name: "discussion-webhook"
+name: discussion-webhook
 on:
   discussion:
-    types: ["created", "answered", "unanswered"]
+    types:
+    - created
+    - answered
+    - unanswered
+
 jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: "Google Chat notification"
-        run: |
-          title="${{ github.event.discussion.title }}"
-          escaped_title="${title//\'/\\\'}"
-          data="{
-            \"thread\": {\"threadKey\": \"${{github.event.discussion.number}}\"},
-            \"cardsV2\": [
-                {
-                    \"cardId\": \"discussion-card\",
-                    \"card\": {
-                        \"header\": {
-                            \"title\": \"Discussion #${{ github.event.discussion.number }} is ${{ github.event.action }}\",
-                            \"subtitle\": \"Discussion tracker bot\"
-                        },
-                        \"sections\": {
-                            \"widgets\": [
-                                {
-                                    \"decoratedText\": {
-                                    \"topLabel\": \"Title\",
-                                    \"text\": \"<b>${{ github.event.discussion.title }}</b>\",
-                                    \"bottomLabel\": \"User: ${{ github.event.discussion.user.login }}\",
-                                    }
-                                },
-                                {
-                                    \"decoratedText\": {
-                                    \"topLabel\": \"Category\",
-                                    \"text\": \"${{ github.event.discussion.category.name }}\"
-                                    }
-                                },
-                                {
-                                    \"buttonList\": {
-                                    \"buttons\": [
-                                        {
-                                        \"text\": \"OPEN DISCUSSION\",
-                                        \"onClick\": {
-                                            \"openLink\": {
-                                            \"url\": \"${{github.event.discussion.html_url}}\"
-                                            }
-                                        }
-                                        }
-                                    ]
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            ]
-          }"
-          [ $(curl --location -X POST '${{secrets.WEBHOOK_CHAT_URL}}&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD' \
-          --header 'Content-Type: application/json' \
-          --data-raw "$data" -o /dev/null -w '%{http_code}') -eq 200 ]
+    - name: Google Chat notification
+      env:
+        TITLE: ${{ github.event.discussion.title }}
+        THREAD_NUMBER: ${{ github.event.discussion.number }}
+        USER: ${{ github.event.discussion.user.login }}
+        ACTION: ${{ github.event.action }}
+        CATEGORY: ${{ github.event.discussion.category.name }}
+        DISCUSSION_URL: ${{ github.event.discussion.html_url }}
+        CHAT_URL: ${{ secrets.WEBHOOK_CHAT_URL }}
+      run: |
+        jq -nS --arg title "${TITLE}" \
+          --arg threadNumber "${THREAD_NUMBER}" \
+          --arg user "${USER}" \
+          --arg action "${ACTION}" \
+          --arg category "${CATEGORY}" \
+          --arg discussionURL "${DISCUSSION_URL}" \
+          '{
+            thread: {
+              threadKey: "\($threadNumber)",
+            },
+            cardsV2: [
+              cardId: "discussion-card",
+              card: {
+                header: {
+                  title: "Discussion #\($title) is \($action)",
+                  subtitle: "Discussion tracker bot",
+                },
+                sections: {
+                  widgets: [
+                    {
+                      decoratedText: {
+                        topLabel: "Title",
+                        text: "<b>\($title)</b>",
+                        bottomLabel: "User: \($user)",
+                      },
+                    },
+                    {
+                      decoratedText: {
+                        topLabel: "Category",
+                        text: $category,
+                      },
+                    },
+                    {
+                      buttonList: {
+                        buttons: [
+                          {
+                            text: "OPEN DISCUSSION",
+                            onClick: {
+                              openLink: {
+                                url: $discussionURL,
+                              },
+                            },
+                          },
+                        ]
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          }' > data.json
 
-      - name: "Send Mia-Assistant suggestion"
-        if: ${{ github.event.action == 'created' }}
-        env:
-            WEBHOOK_CHAT_URL: ${{ secrets.WEBHOOK_CHAT_URL }}
-            ASSISTANT_API_URL: ${{ secrets.ASSISTANT_API_URL }}
-            ASSISTANT_M2M_AUTH: ${{ secrets.ASSISTANT_M2M_AUTH }}
-            ASSISTANT_M2M_URL: ${{ secrets.ASSISTANT_M2M_URL }}
-        run: |
-            # Login M2M
+        curl --silent --show-error --location \
+          --proto '=https' \
+          --tlsv1.2 \
+          --request POST \
+          --header "Content-Type: application/json" \
+          --data "@data.json" \
+          "${CHAT_URL}&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD"
 
-            TOKEN=$(curl -X POST "$ASSISTANT_M2M_URL" \
-            -H "Content-Type: application/x-www-form-urlencoded" \
-            -H "Authorization: Basic $ASSISTANT_M2M_AUTH" \
-            -d "grant_type=client_credentials" | jq -r '.access_token')
-            
-            # Get discussion body
+    - name: Send Mia-Assistant suggestion
+      if: ${{ github.event.action == 'created' }}
+      env:
+        ASSISTANT_M2M_AUTH: ${{ secrets.ASSISTANT_M2M_AUTH }}
+        ASSISTANT_M2M_URL: ${{ secrets.ASSISTANT_M2M_URL }}
+        DISCUSSION_TITLE: ${{ github.event.discussion.title }}
+        DISCUSSION_BODY: ${{ github.event.discussion.body }}
+        THREAD_NUMBER: ${{ github.event.discussion.number }}
+        CHAT_URL: ${{ secrets.WEBHOOK_CHAT_URL }}
+        ASSISTANT_API_URL: ${{ secrets.ASSISTANT_API_URL }}
+      run: |
+        # Login via Token
+        curl --fail --silent --show-error --location \
+          --proto '=https' \
+          --tlsv1.2 \
+          --request POST \
+          --header "Content-Type: application/x-www-form-urlencoded" \
+          --header "AuthorizationBasic ${ASSISTANT_M2M_AUTH}" \
+          --data "grant_type=client_credentials" \
+          "${ASSISTANT_M2M_URL}" -o m2m_response.json || true
 
-            BODY=$(echo '${{ github.event.discussion.body }}' | sed 's/\\n//g')
-            DISCUSSION_BODY="title:${{ github.event.discussion.title }}\nbody:$BODY"
+        if [ ! -f "m2m_response.json" ]; then
+          echo "Login via m2m has failed..."
+          exit 0
+        fi
 
-            # Get suggestion from Mia-Assistant
+        # Ask assistant for a response
+        jq -nS --arg title "${DISCUSSION_TITLE}" --arg body "${DISCUSSION_BODY}" '{
+          chat_query: "title:\($title)\nbody:\($body)",
+          chat_history: [],
+        }' > data.json
 
-            QUERY=$(jq -n --arg chatQuery "$DISCUSSION_BODY" '{chat_query: $chatQuery, chat_history: []}')
-            RESPONSE=$(curl -v -X POST "$ASSISTANT_API_URL" \
-                -H "Authorization: Bearer $TOKEN" \
-                -H 'Content-Type: application/json' \
-                --data-raw "$QUERY")
-                
-            MESSAGE=$(echo "$RESPONSE" | jq -r '.message')
-            REFERENCE_LINKS=$(echo "$RESPONSE" | jq -r '[.references[].url] | join(", ")')
+        curl --fail --silent --show-error --location \
+          --proto '=https' \
+          --tlsv1.2 \
+          --request POST \
+          --header "Authorization: Bearer: $(jq -r '.access_token' m2m_response.json)" \
+          --header "Content-Type: application/json" \
+          --data "@data.json" \
+          "${ASSISTANT_API_URL}" -o assistant_response.json || true
 
-            # Send suggestion to the discussion thread
+        if [ ! -f "assistant_response.json" ]; then
+          echo "Assistant request has failed..."
+          exit 0
+        fi
 
-            DATA=$(jq -n --arg text "*This is a suggestion generated by Mia-Assistant.*\n\n*Please leave a feedback!!!*\n --- \n$MESSAGE\n\nReferences links:\n\n$REFERENCE_LINKS." '{thread: {"threadKey": "${{ github.event.discussion.number }}"}, text: $text}' | sed 's/\\\\n/\\n/g')
+        # Send suggestion to the discussion thread
+        jq -nS --arg threadNumber "${THREAD_NUMBER}" \
+          --arg message "$(jq -r '.message' assistant_response.json)" \
+          --arg referenceLinks "$(jq -r '[.references[].url] | join(\", \")' assistant_response.json)" \
+          '{
+            thread: {
+              threadKey: "\($threadNumber)",
+            },
+            text: "*This is a suggestion generated by Mia-Assistant.*\n\n*Please leave a feedback!*\n --- \n\($message)\n\nReferences links:\n\n\($referenceLinks).",
+          }' > data.json
 
-            [ $(curl --location -X POST '${{secrets.WEBHOOK_CHAT_URL}}&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD' \
-            --header 'Content-Type: application/json' \
-            --data-raw "$DATA" -o /dev/null -w '%{http_code}') -eq 200 ]
+        curl --silent --show-error --location \
+          --proto '=https' \
+          --tlsv1.2 \
+          --request POST \
+          --header "Content-Type: application/json" \
+          --data "@data.json" \
+          "${CHAT_URL}&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD"
