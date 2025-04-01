@@ -31,42 +31,44 @@ jobs:
               threadKey: "\($threadNumber)",
             },
             cardsV2: [
-              cardId: "discussion-card",
-              card: {
-                header: {
-                  title: "Discussion #\($title) is \($action)",
-                  subtitle: "Discussion tracker bot",
-                },
-                sections: {
-                  widgets: [
-                    {
-                      decoratedText: {
-                        topLabel: "Title",
-                        text: "<b>\($title)</b>",
-                        bottomLabel: "User: \($user)",
+              {
+                cardId: "discussion-card",
+                card: {
+                  header: {
+                    title: "Discussion #\($title) is \($action)",
+                    subtitle: "Discussion tracker bot",
+                  },
+                  sections: {
+                    widgets: [
+                      {
+                        decoratedText: {
+                          topLabel: "Title",
+                          text: "<b>\($title)</b>",
+                          bottomLabel: "User: \($user)",
+                        },
                       },
-                    },
-                    {
-                      decoratedText: {
-                        topLabel: "Category",
-                        text: $category,
+                      {
+                        decoratedText: {
+                          topLabel: "Category",
+                          text: $category,
+                        },
                       },
-                    },
-                    {
-                      buttonList: {
-                        buttons: [
-                          {
-                            text: "OPEN DISCUSSION",
-                            onClick: {
-                              openLink: {
-                                url: $discussionURL,
+                      {
+                        buttonList: {
+                          buttons: [
+                            {
+                              text: "OPEN DISCUSSION",
+                              onClick: {
+                                openLink: {
+                                  url: $discussionURL,
+                                },
                               },
                             },
-                          },
-                        ]
+                          ]
+                        },
                       },
-                    },
-                  ],
+                    ],
+                  },
                 },
               },
             ],
