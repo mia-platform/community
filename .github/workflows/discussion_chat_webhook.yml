@@ -63,14 +63,14 @@ jobs:
                                   url: $discussionURL,
                                 },
                               },
-                            },
-                          ]
+                            }
+                          ],
                         },
-                      },
+                      }
                     ],
                   },
                 },
-              },
+              }
             ],
           }' > data.json
 
